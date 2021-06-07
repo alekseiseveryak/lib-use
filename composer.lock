@@ -1,0 +1,55 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "1059f76aebf23d6118882b869e027b64",
+    "packages": [
+        {
+            "name": "severyak/lib",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alekseiseveryak/lib.git",
+                "reference": "bbd02ef1471b88ead9d85a1e3b2bfac97c679511"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alekseiseveryak/lib/zipball/bbd02ef1471b88ead9d85a1e3b2bfac97c679511",
+                "reference": "bbd02ef1471b88ead9d85a1e3b2bfac97c679511",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Severyak\\": "/src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Aleksei Severyak",
+                    "email": "severyachok@gmail.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/alekseiseveryak/lib/issues",
+                "source": "https://github.com/alekseiseveryak/lib/tree/master"
+            },
+            "time": "2021-06-07T16:00:07+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "severyak/lib": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
