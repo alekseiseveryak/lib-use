@@ -11,20 +11,20 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/alekseiseveryak/lib.git",
-                "reference": "bbd02ef1471b88ead9d85a1e3b2bfac97c679511"
+                "url": "https://github.com/severyak/lib.git",
+                "reference": "6f0c359bad249cca7ce2f158dabfb2fbd8baea29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alekseiseveryak/lib/zipball/bbd02ef1471b88ead9d85a1e3b2bfac97c679511",
-                "reference": "bbd02ef1471b88ead9d85a1e3b2bfac97c679511",
+                "url": "https://api.github.com/repos/severyak/lib/zipball/6f0c359bad249cca7ce2f158dabfb2fbd8baea29",
+                "reference": "6f0c359bad249cca7ce2f158dabfb2fbd8baea29",
                 "shasum": ""
             },
             "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Severyak\\": "/src/"
+                    "Severyak\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -35,10 +35,10 @@
                 }
             ],
             "support": {
-                "issues": "https://github.com/alekseiseveryak/lib/issues",
-                "source": "https://github.com/alekseiseveryak/lib/tree/master"
+                "issues": "https://github.com/severyak/lib/issues",
+                "source": "https://github.com/severyak/lib/tree/master"
             },
-            "time": "2021-06-07T16:00:07+00:00"
+            "time": "2021-06-08T10:34:47+00:00"
         }
     ],
     "packages-dev": [],
