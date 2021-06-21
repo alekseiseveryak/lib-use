@@ -8,7 +8,9 @@
         }
     ],
     "require": {
-        "severyak/lib": "dev-master"
+        "severyak/lib": "dev-master",
+        "ext-sockets": "*",
+        "ext-pcntl": "*"
     },
     "autoload": {
         "psr-4": {
