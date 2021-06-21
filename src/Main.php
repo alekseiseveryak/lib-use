@@ -59,6 +59,7 @@ class Main
                     $msg .= "\n\n";
                     socket_write($msgsock, $msg, strlen($msg));
                 } while (true);
+                exit(0);
             }
             socket_close($msgsock);
         } while (true);
