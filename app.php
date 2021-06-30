@@ -1,10 +1,11 @@
 #!/usr/bin/env php
 <?php
 
-use App\Main;
+namespace App;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+const ROOT = __DIR__;
 const INTRO = <<<INTRO
     ___ __
    / (_) /_        __  __________
@@ -14,11 +15,13 @@ const INTRO = <<<INTRO
 INTRO;
 echo INTRO . "\n\n";
 
-$opt = getopt('p:', ['port:']);
-$port = $opt['p'] ?? $opt['port'] ?? false;
+$config = new Config();
+$config->load();
+$port = $config->params->port ?? false;
+
 if ($port) {
     $main = new Main((int)$port);
     $main->run();
 } else {
-    die('Отсутствует параметр -p (--port)');
+    die('Невозможно получить номер порта' . PHP_EOL);
 }
