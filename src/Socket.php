@@ -6,7 +6,7 @@ use Severyak\Brackets;
 
 class Socket
 {
-    protected string $address = '127.0.0.1';
+    protected string $address = '0.0.0.0';
     protected int $port = 0;
     protected $master;
     protected array $clients = [];

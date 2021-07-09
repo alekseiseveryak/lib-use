@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+    lib-use:
+#        image: php:7.4-fpm
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - .:/var/project
+        entrypoint:
+            - /var/project/app.php
+        domainname: lib-use.local
+        ports:
+            - 10000:10000
+        networks:
+            - backend
+
+networks:
+    backend:
+        driver: bridge
