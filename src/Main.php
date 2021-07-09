@@ -2,68 +2,54 @@
 
 namespace App;
 
-use Severyak\Brackets;
-
 class Main
 {
-    protected string $address = '127.0.0.1';
-    protected int $port;
+    protected Socket $socket;
+    protected Config $config;
+    protected int $currentPort;
 
-    public function __construct($port)
+    public function __construct()
     {
-        $this->port = $port;
+        $this->config = new Config();
+        $this->socket = new Socket();
+        $this->loadConfig();
+        $this->socket->setPort($this->currentPort);
+
+        pcntl_signal(SIGHUP, function () {
+            $this->restart();
+        });
+        pcntl_signal_dispatch();
+
+        echo WELCOME . "\n\n";
     }
 
     public function run()
     {
-//        var_dump($this);
-        $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-        socket_bind($socket, $this->address, $this->port);
+        $this->socket->start();
+    }
 
-        if (socket_listen($socket, 2)) {
-            echo "Сервер запущен.\nАдрес: " . $this->address . "\nПорт: " . $this->port . "\n\n";
+    protected function restart()
+    {
+        $this->loadConfig();
+        if ($this->socket->getPort() !== $this->currentPort) {
+            echo "Выполняется перезапуск сервера...\n";
+            $this->socket->stop();
+            $this->socket->setPort($this->currentPort);
+            $this->socket->start();
+        } else {
+            echo "Перезапуск не требуется...\n";
         }
+    }
 
-        do {
-            $msgsock = socket_accept($socket);
+    protected function loadConfig()
+    {
+        $this->config->load();
+        $port = (int) $this->config->params->port ?? false;
 
-            if (pcntl_fork() === 0) {
-                $msg = "\n" . INTRO . "\n\n";
-                $msg .= "Добро пожаловать на сервер!\n\n";
-                socket_write($msgsock, $msg, strlen($msg));
-
-                do {
-                    $msg = "Введите строку для валидации:\n";
-                    socket_write($msgsock, $msg, strlen($msg));
-
-                    $buffer = socket_read($msgsock, 2048, PHP_BINARY_READ);
-                    $buffer = trim($buffer);
-
-                    if ($buffer === 'quit') {
-                        break;
-                    }
-
-//                printf(": %s\n", $buffer);
-
-                    $msg = '';
-                    try {
-                        $lib = new Brackets($buffer);
-                        if ($lib->check()) {
-                            $msg .= 'Строка корректна';
-                        } else {
-                            $msg .= 'Строка некорректна';
-                        }
-                    } catch (\InvalidArgumentException $e) {
-                        $msg .= "Строка содержит недопустимые символы или пуста";
-                    }
-                    $msg .= "\n\n";
-                    socket_write($msgsock, $msg, strlen($msg));
-                } while (true);
-                exit(0);
-            }
-            socket_close($msgsock);
-        } while (true);
-
-        socket_close($socket);
+        if ($port) {
+            $this->currentPort = $port;
+        } else {
+            die("Невозможно получить номер порта\n");
+        }
     }
 }

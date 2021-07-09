@@ -10,7 +10,9 @@
     "require": {
         "severyak/lib": "dev-master",
         "ext-sockets": "*",
-        "ext-pcntl": "*"
+        "ext-pcntl": "*",
+        "symfony/yaml": "^5.3",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
