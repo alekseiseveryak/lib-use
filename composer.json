@@ -8,11 +8,7 @@
         }
     ],
     "require": {
-        "severyak/lib": "dev-master",
-        "ext-sockets": "*",
-        "ext-pcntl": "*",
-        "symfony/yaml": "^5.3",
-        "ext-json": "*"
+        "severyak/lib": "dev-master"
     },
     "autoload": {
         "psr-4": {

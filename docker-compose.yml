@@ -1,18 +1,26 @@
 version: '2'
 
 services:
-    lib-use:
-#        image: php:7.4-fpm
+    nginx:
         build:
             context: ./
             dockerfile: Dockerfile
+        domainname: lib-use.dev
         volumes:
-            - .:/var/project
-        entrypoint:
-            - /var/project/app.php
-        domainname: lib-use.local
+            - .:/var/dev
+#        links:
+#            - php
         ports:
-            - 10000:10000
+            - 80:80
+        networks:
+            - backend
+
+    php:
+        image: php:7.4-fpm
+        volumes:
+            - .:/var/dev
+        ports:
+            - 9000:9000
         networks:
             - backend
 

@@ -1,0 +1,8 @@
+/vendor/
+.idea
+.DS_Store
+.editorconfig
+config.yml
+temp.php
+dev.http
+composer.lock
