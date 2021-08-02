@@ -2,54 +2,42 @@
 
 namespace App;
 
+use Severyak\Brackets;
+
 class Main
 {
-    protected Socket $socket;
-    protected Config $config;
-    protected int $currentPort;
+    protected $input;
+    protected $output = 'Строка пуста';
 
-    public function __construct()
+    public function __construct($input)
     {
-        $this->config = new Config();
-        $this->socket = new Socket();
-        $this->loadConfig();
-        $this->socket->setPort($this->currentPort);
-
-        pcntl_signal(SIGHUP, function () {
-            $this->restart();
-        });
-        pcntl_signal_dispatch();
-
-        echo WELCOME . "\n\n";
+        $this->input = $input;
     }
 
     public function run()
     {
-        $this->socket->start();
-    }
+        $success = false;
 
-    protected function restart()
-    {
-        $this->loadConfig();
-        if ($this->socket->getPort() !== $this->currentPort) {
-            echo "Выполняется перезапуск сервера...\n";
-            $this->socket->stop();
-            $this->socket->setPort($this->currentPort);
-            $this->socket->start();
-        } else {
-            echo "Перезапуск не требуется...\n";
+        if ($this->input) {
+            try {
+                $lib = new Brackets($this->input);
+                if ($lib->check()) {
+                    $success = true;
+                    $this->output = 'Строка корректна';
+                } else {
+                    $this->output = 'Строка некорректна';
+                }
+            } catch (\InvalidArgumentException $e) {
+                $this->output = "Строка содержит недопустимые символы";
+            }
         }
-    }
 
-    protected function loadConfig()
-    {
-        $this->config->load();
-        $port = (int) $this->config->params->port ?? false;
-
-        if ($port) {
-            $this->currentPort = $port;
+        if ($success) {
+            header('HTTP/1.1 200 OK');
         } else {
-            die("Невозможно получить номер порта\n");
+            header('HTTP/1.1 400 Bad Request');
         }
+
+        echo $this->output;
     }
 }

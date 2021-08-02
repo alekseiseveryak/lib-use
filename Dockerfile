@@ -1,10 +1,6 @@
-FROM php:7.4-fpm
-
-RUN docker-php-ext-configure pcntl --enable-pcntl \
-    && docker-php-ext-configure sockets --enable-sockets \
-    && docker-php-ext-install -j$(nproc) \
-    pcntl \
-    sockets
+FROM ubuntu:16.04
 
 RUN apt-get update \
-    && apt-get -y install telnet
+    && apt-get install -y nginx
+
+ENTRYPOINT ["/usr/sbin/nginx", "-c", "/var/dev/nginx.conf"]
